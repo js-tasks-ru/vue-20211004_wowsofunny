@@ -31,23 +31,23 @@
     <div id="app" class="container">
       <div class="row">
         <div class="col">
-          <input type="number" v-model.number="numFirst" @change="calcValue"/>
+          <input type="number" v-model.number="numFirst"/>
         </div>
 
         <div class="col" style="display: flex; flex-direction: column; font-family: emoji">
-          <label><input type="radio" value="sum" :checked="operand === 'sum'" @change="operand = $event.target.value"/> ➕</label>
-          <label><input type="radio" value="subtract" :checked="operand === 'subtract'" @change="operand = $event.target.value"/> ➖</label>
-          <label><input type="radio" value="multiply" :checked="operand === 'multiply'" @change="operand = $event.target.value"/> ✖</label>
-          <label><input type="radio" value="divide" :checked="operand === 'divide'" @change="operand = $event.target.value"/> ➗</label>
+          <label><input type="radio" value="sum" v-model="operand"/> ➕</label>
+          <label><input type="radio" value="subtract" v-model="operand"/> ➖</label>
+          <label><input type="radio" value="multiply" v-model="operand"/> ✖</label>
+          <label><input type="radio" value="divide" v-model="operand"/> ➗</label>
         </div>
 
         <div class="col">
-          <input type="number" v-model.number="numSecond" @change="calcValue"/>
+          <input type="number" v-model.number="numSecond"/>
         </div>
 
         <div class="col">=</div>
 
-        <output class="col">{{calcValue}}</output>
+        <output class="col">{{ calcValue }}</output>
       </div>
     </div>
 
