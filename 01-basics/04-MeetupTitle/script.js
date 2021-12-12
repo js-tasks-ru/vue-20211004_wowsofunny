@@ -25,13 +25,13 @@ const Root = defineComponent({
   },
   watch: {
     async meetupId() {
-      await this.fetchMeetupById(this.meetupId)
-        .then((data) => this.meetupTitle = data.title)
+      let response = await this.fetchMeetupById(this.meetupId);
+      this.meetupTitle = response.title;
     }
   },
   async mounted() {
-    await this.fetchMeetupById(this.meetupId)
-        .then((data) => this.meetupTitle = data.title)
+    let response = await this.fetchMeetupById(this.meetupId);
+    this.meetupTitle = response.title;
   },
   methods: {
     fetchMeetupById(meetupId) {
