@@ -12,8 +12,14 @@ export default defineComponent({
     },
   },
 
+  computed: {
+    currentBgStyle() {
+      return this.image ? '--bg-url: url(' + this.image + ')' : '';
+    }
+  },
+
   template: `
-    <div class="meetup-cover" :style="image ? '--bg-url: url(' + image + ')' : ''">
+    <div class="meetup-cover" :style="currentBgStyle">
         <h1 class="meetup-cover__title">{{ title }}</h1>
     </div>`,
 });
