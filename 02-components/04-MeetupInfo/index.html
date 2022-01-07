@@ -19,7 +19,7 @@
       <meetup-info
         :organizer="meetups[selectedMeetup].organizer"
         :place="meetups[selectedMeetup].place"
-        :date="currentMeetupDate"
+        :date="meetups[selectedMeetup].date"
       ></meetup-info>
     </div>
 
@@ -39,10 +39,8 @@
             selectedMeetup: 0,
           };
         },
-        computed: {
-          currentMeetupDate() {
-            return new Date(this.meetups[this.selectedMeetup].date).toLocaleDateString(navigator.language, {year: 'numeric', month: 'long', day: 'numeric'})
-          }
+        mounted() {
+          console.log(meetups)
         }
       }).mount('#app');
     </script>
