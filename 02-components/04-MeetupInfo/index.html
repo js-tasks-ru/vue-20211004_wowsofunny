@@ -41,7 +41,7 @@
         },
         computed: {
           currentMeetupDate() {
-            return new Date(this.meetups[this.selectedMeetup].date).toLocaleDateString()
+            return new Date(this.meetups[this.selectedMeetup].date).toLocaleDateString(navigator.language, {year: 'numeric', month: 'long', day: 'numeric'})
           }
         }
       }).mount('#app');
