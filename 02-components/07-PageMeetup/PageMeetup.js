@@ -20,28 +20,25 @@ export default defineComponent({
   },
   data() {
     return {
-      currentMeetup: {},
+      currentMeetup: null,
       loading: false,
       isError: false,
       errorMsg: '',
     };
   },
   watch: {
-    async meetupId() {
-      await this.getCurrentMeetup(this.meetupId);
+    meetupId() {
+      this.getCurrentMeetup(this.meetupId);
     },
   },
-  async beforeMount() {
-    await this.getCurrentMeetup(1);
-  },
-  async mounted() {
-    await this.getCurrentMeetup(this.meetupId);
+  mounted() {
+    this.getCurrentMeetup(this.meetupId);
   },
 
   methods: {
     async getCurrentMeetup(meetupId) {
+      this.isError = false;
       this.loading = true;
-      this.isError = false
       try {
         await fetchMeetupById(meetupId).then((result) => {
           this.currentMeetup = result;
@@ -49,15 +46,15 @@ export default defineComponent({
         });
       } catch(error) {
         this.loading = false;
-        this.isError = true;
         this.errorMsg = error.message;
+        this.isError = true;
       }
     },
   },
 
   template: `
     <div class="page-meetup">
-      <meetup-view v-if="!loading && !isError" :meetup="currentMeetup"></meetup-view>
+      <meetup-view v-if="currentMeetup && !loading && !isError" :meetup="currentMeetup"></meetup-view>
 
       <ui-container v-if="loading">
         <ui-alert>Загрузка...</ui-alert>

@@ -9,14 +9,11 @@ export default defineComponent({
     },
   },
   computed: {
-    agendaItemType() {
-      return this.agendaItem.type;
-    },
     agendaItemIconSrc() {
-      return `/assets/icons/icon-${agendaItemIcons[this.agendaItemType]}.svg`;
+      return `/assets/icons/icon-${agendaItemIcons[this.agendaItem.type]}.svg`;
     },
     agendaItemTitle() {
-      return this.agendaItem.title || agendaItemDefaultTitles[this.agendaItemType];
+      return this.agendaItem.title || agendaItemDefaultTitles[this.agendaItem.type];
     }
   },
 
