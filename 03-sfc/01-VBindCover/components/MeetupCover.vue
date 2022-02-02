@@ -1,12 +1,26 @@
 <template>
-  <div class="meetup-cover">
-    <h1 class="meetup-cover__title">Title</h1>
+  <div class="meetup-cover" :class="{ 'meetup-cover-noimage': !image }">
+    <h1 class="meetup-cover__title">{{ title }}</h1>
   </div>
 </template>
 
 <script>
 export default {
   name: 'MeetupCover',
+  props: {
+    title: {
+      type: String,
+      required: true,
+    },
+    image: {
+      required: true,
+    },
+  },
+  data() {
+    return {
+      color: 'red',
+    }
+  },
 };
 </script>
 
@@ -14,9 +28,7 @@ export default {
 .meetup-cover {
   background-size: cover;
   background-position: center;
-  background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-    url('https://course-vue.javascript.ru/api/images/2');
-  /* background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), var(--default-cover); */
+  background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), v-bind('`url(${image})`');
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,6 +36,10 @@ export default {
   height: 410px;
   max-width: 1216px;
   margin: 0 auto;
+}
+
+.meetup-cover-noimage {
+  background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), var(--default-cover);
 }
 
 .meetup-cover__title {
