@@ -16,11 +16,6 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      color: 'red',
-    }
-  },
 };
 </script>
 
