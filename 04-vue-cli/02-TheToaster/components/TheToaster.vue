@@ -16,25 +16,21 @@ export default {
     };
   },
   methods: {
-    success(message) {
-      const timeout = 5000;
+    addToast(type, message, timeoutTime) {
+      const timeout = timeoutTime;
       this.toasts.push({
-        type: 'success',
+        type: type,
         text: message,
       })
       setTimeout(() => {
         this.toasts.shift();
       }, timeout);
     },
+    success(message) {
+      this.addToast('success', message, 5000);
+    },
     error(message) {
-      const timeout = 5000;
-      this.toasts.push({
-        type: 'error',
-        text: message,
-      })
-      setTimeout(() => {
-        this.toasts.shift();
-      }, timeout);
+      this.addToast('error', message, 5000);
     }
   }
 };
