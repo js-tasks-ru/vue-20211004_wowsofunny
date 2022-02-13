@@ -1,18 +1,27 @@
 <template>
-  <div class="dropdown dropdown_opened">
-    <button type="button" class="dropdown__toggle dropdown__toggle_icon">
-      <ui-icon icon="tv" class="dropdown__icon" />
-      <span>Title</span>
+  <div class="dropdown" :class="{ dropdown_opened: isDropdownOpened }">
+    <button
+      type="button"
+      class="dropdown__toggle"
+      :class="{ dropdown__toggle_icon: isDropdownWithIcons }"
+      @click="toggleDropdown"
+    >
+      <ui-icon v-if="currentOption?.icon" :icon="currentOption.icon" class="dropdown__icon" />
+      <span>{{ currentOption?.text || title }}</span>
     </button>
 
-    <div class="dropdown__menu" role="listbox">
-      <button class="dropdown__item dropdown__item_icon" role="option" type="button">
-        <ui-icon icon="tv" class="dropdown__icon" />
-        Option 1
-      </button>
-      <button class="dropdown__item dropdown__item_icon" role="option" type="button">
-        <ui-icon icon="tv" class="dropdown__icon" />
-        Option 2
+    <div v-show="isDropdownOpened" class="dropdown__menu" role="listbox">
+      <button
+        v-for="option in options"
+        :key="option"
+        class="dropdown__item"
+        :class="{ dropdown__item_icon: isDropdownWithIcons }"
+        role="option"
+        type="button"
+        @click="selectOption(option.value)"
+      >
+        <ui-icon v-if="option.icon" :icon="option.icon" class="dropdown__icon" />
+        {{ option.text }}
       </button>
     </div>
   </div>
@@ -25,6 +34,56 @@ export default {
   name: 'UiDropdown',
 
   components: { UiIcon },
+
+  props: {
+    options: {
+      type: Array,
+      required: true,
+    },
+    modelValue: {
+      type: String,
+    },
+    title: {
+      type: String,
+    },
+  },
+
+  emits: {
+    'update:modelValue': null,
+  },
+
+  data() {
+    return {
+      isDropdownOpened: false,
+    };
+  },
+
+  computed: {
+    currentOption() {
+      return this.options.find((item) => {
+        return item.value === this.modelValue;
+      });
+    },
+    isDropdownWithIcons() {
+      let iconsLength = 0;
+      for (let option of this.options) {
+        if (option.icon) {
+          iconsLength++;
+        }
+      }
+      return iconsLength ? true : false;
+    },
+  },
+
+  methods: {
+    toggleDropdown() {
+      this.isDropdownOpened = !this.isDropdownOpened;
+    },
+    selectOption(value) {
+      this.isDropdownOpened = false;
+      this.$emit('update:modelValue', value);
+    },
+  },
 };
 </script>
 
